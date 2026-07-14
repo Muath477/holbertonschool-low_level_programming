@@ -10,8 +10,10 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 calculator.c -o calculator
 
 ./calculator
 
-The program shows a menu. Type the number of the operation you want and
-press Enter. Type 0 to quit.
+The program shows a menu, then asks for a choice in a loop.
+Type the number of the operation you want and press Enter.
+For operations 1 to 4, the program asks for two operands (A and B).
+Type 0 to quit.
 
 ## Supported Operations
 
@@ -23,11 +25,24 @@ press Enter. Type 0 to quit.
 
 ## Numeric Behavior
 
-The menu option is read as an integer using scanf with %d.
+The menu choice is read as an integer with scanf using %d.
+
+The operands are read as decimals (double) with scanf using %lf, so the
+calculator works with decimal numbers, not only integers.
+
+Results are printed with %g. This means whole results print without extra
+zeros (6 + 7 gives 13, not 13.000000), while fractional results keep their
+decimals (10 / 4 gives 2.5).
+
+Division by zero is checked before the division is performed. If B is zero
+for the divide operation, the program prints an error and returns to the menu
+instead of dividing.
 
 ## Known Limitations
 
-The program only validates that the menu option is an integer inside the
-valid range. It does not handle non-numeric input such as letters or words.
-If the user types something like "x" or "hello", the program may behave
-unexpectedly. This is outside the scope of the mandatory part.
+The menu is printed only once at the start, not before every choice.
+
+If the user enters non-numeric input (for example a letter), scanf fails to
+parse it. The program discards the rest of the input line and prints
+"Invalid choice", then asks again. Without discarding the line, the program
+would loop forever on the same bad input.
