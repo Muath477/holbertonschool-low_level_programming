@@ -7,7 +7,7 @@
  *
  * Return: 1 if n is prime, 0 otherwise
  */
-static int check_divisors(int n, int i)
+int check_divisors(int n, int i)
 {
 	if (n <= 1)
 		return (0);
